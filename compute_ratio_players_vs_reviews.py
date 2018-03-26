@@ -98,7 +98,7 @@ if __name__ == "__main__":
     # Ranking parameter
     ratio_exponent = -1
     # A ranking will be stored in the following text file
-    output_filename = None  # "ranking.md"
+    output_filename = "ranking.md"
     # Display parameter
     num_top_games_to_print = 10
     verbose = True
