@@ -5,3 +5,6 @@
 
 This repository contains code to compute a ranking of Steam games with unusual ratio players vs. reviews.
 
+## Reference ##
+
+* [a ResetERA post](https://www.resetera.com/posts/6011450/) showing the results.
