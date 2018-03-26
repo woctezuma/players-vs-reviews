@@ -42,16 +42,16 @@ def rank_games_based_on_ratio_players_vs_reviews(steamspy_data, ratio_exponent=1
     # Code copied from rankGames() in compute_stats.py in hidden-gems repository.
 
     # Sort data based on ratio
-    appID_ranking = sorted(steamspy_data.keys(),
-                           key=lambda appID: compute_ratio_players_vs_reviews(steamspy_data[appID], ratio_exponent,
+    appid_ranking = sorted(steamspy_data.keys(),
+                           key=lambda appid: compute_ratio_players_vs_reviews(steamspy_data[appid], ratio_exponent,
                                                                               player_str),
                            reverse=True)
 
     # Get game names
-    game_name_ranking = list(map(lambda appID: steamspy_data[appID]['name'], appID_ranking))
+    game_name_ranking = list(map(lambda appid: steamspy_data[appid]['name'], appid_ranking))
 
     # The following call to list() allows to copy the ranking, e.g. to compute its length before iterating over it.
-    ranking = list(zip(appID_ranking, game_name_ranking))
+    ranking = list(zip(appid_ranking, game_name_ranking))
 
     return ranking
 
@@ -90,7 +90,7 @@ def print_ranking_to_file_stream(ranking, outfile=None, num_top_games_to_print=N
 
 
 def print_ranking_to_file(ranking, output_filename=None, num_top_games_to_print=None):
-    # Save the ranking to the output text file (if provided) in a format parsable by Github Gist.
+    # Save the ranking to the output text file (if provided) in a format recognized by Github Gist.
     # Otherwise print the ranking to the screen
 
     if output_filename is None:
