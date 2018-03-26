@@ -25,8 +25,9 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     # Discard data with:
     # - more noise than signal,
     # - zero player (due to the use of a "lower or equal" sign),
+    # - fewer players than reviews (a sign that data is spurious),
     # - zero review. Game is weird: either a development toolkit, or it was removed from the store, etc.
-    if (num_players <= num_players_variance) or (num_reviews == 0):
+    if (num_players <= num_players_variance) or (num_players < num_reviews) or (num_reviews == 0):
         ratio_players_vs_reviews = -1
     else:
         assert (num_players > 0)
