@@ -15,6 +15,8 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     if (num_players <= num_players_variance):
         ratio_players_vs_reviews = -1
     else:
+        assert (num_players > 0)
+
         try:
             ratio_players_vs_reviews = pow(num_players / num_reviews, ratio_exponent)
         except ZeroDivisionError:
