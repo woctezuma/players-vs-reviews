@@ -124,7 +124,7 @@ if __name__ == "__main__":
     output_filename = "ranking.md"
 
     # Display parameter
-    num_top_games_to_print = 10
+    num_top_games_to_print = 25
     verbose = True
 
     data = getTodaysSteamSpyData()
@@ -134,4 +134,4 @@ if __name__ == "__main__":
     print_ranking_to_file(ranking, output_filename, num_top_games_to_print)
 
     if verbose:
-        check_meta_data(data, ranking, num_top_games_to_print=10)
+        check_meta_data(data, ranking, num_top_games_to_print)
