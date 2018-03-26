@@ -12,7 +12,7 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     num_reviews = num_positive_reviews + num_negative_reviews
 
     # Discard data with more noise than signal
-    if (num_players < num_players_variance):
+    if (num_players <= num_players_variance):
         ratio_players_vs_reviews = -1
     else:
         try:
