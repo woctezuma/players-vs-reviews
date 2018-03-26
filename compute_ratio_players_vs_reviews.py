@@ -11,16 +11,17 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     # Compute ratio
     num_reviews = num_positive_reviews + num_negative_reviews
 
-    # Discard data with more noise than signal
-    if (num_players <= num_players_variance):
+    # Discard data with:
+    # - more noise than signal,
+    # - zero player (due to the use of a "lower or equal" sign),
+    # - zero review. Game is weird: either a development toolkit, or it was removed from the store, etc.
+    if (num_players <= num_players_variance) or (num_reviews == 0):
         ratio_players_vs_reviews = -1
     else:
         assert (num_players > 0)
+        assert (num_reviews > 0)
 
-        try:
-            ratio_players_vs_reviews = pow(num_players / num_reviews, ratio_exponent)
-        except ZeroDivisionError:
-            ratio_players_vs_reviews = -1
+        ratio_players_vs_reviews = pow(num_players / num_reviews, ratio_exponent)
 
     return ratio_players_vs_reviews
 
