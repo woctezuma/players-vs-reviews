@@ -3,6 +3,7 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
 
     # Read data
     num_players = game[player_str + '_forever']
+    num_players_variance = game[player_str + '_forever_variance']
 
     num_positive_reviews = game["positive"]
     num_negative_reviews = game["negative"]
@@ -10,10 +11,14 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     # Compute ratio
     num_reviews = num_positive_reviews + num_negative_reviews
 
-    try:
-        ratio_players_vs_reviews = pow(num_players / num_reviews, ratio_exponent)
-    except ZeroDivisionError:
+    # Discard data with more noise than signal
+    if (num_players < num_players_variance):
         ratio_players_vs_reviews = -1
+    else:
+        try:
+            ratio_players_vs_reviews = pow(num_players / num_reviews, ratio_exponent)
+        except ZeroDivisionError:
+            ratio_players_vs_reviews = -1
 
     return ratio_players_vs_reviews
 
