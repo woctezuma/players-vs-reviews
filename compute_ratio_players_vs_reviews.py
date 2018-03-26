@@ -2,8 +2,8 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     # Code copied from createLocalDictionary() in create_dict_using_json.py in hidden-gems repository.
 
     # Read data
-    num_players = game[player_str + '_forever']
-    num_players_variance = game[player_str + '_forever_variance']
+    num_players = game[player_str]
+    num_players_variance = game[player_str + '_variance']
 
     num_positive_reviews = game["positive"]
     num_negative_reviews = game["negative"]
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
     # Ranking parameter
     ratio_exponent = -1
-    player_str = 'players'  # Either 'players' or 'owners'
+    player_str = 'players_forever'  # Either 'players_forever' or 'owners'
 
     # A ranking will be stored in the following text file
     output_filename = "ranking.md"
