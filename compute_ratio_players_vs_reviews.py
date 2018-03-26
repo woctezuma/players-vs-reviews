@@ -80,6 +80,18 @@ def print_ranking_to_file(ranking, output_filename=None, num_top_games_to_print=
     return
 
 
+def check_meta_data(data, ranking, num_top_games_to_print=10):
+    for (iter_no, game_info) in enumerate(ranking):
+
+        if iter_no > num_top_games_to_print:
+            break
+
+        (appid, game_name) = game_info
+        print(data[appid])
+
+    return
+
+
 if __name__ == "__main__":
     from download_json import getTodaysSteamSpyData
 
@@ -89,9 +101,13 @@ if __name__ == "__main__":
     output_filename = None  # "ranking.md"
     # Display parameter
     num_top_games_to_print = 10
+    verbose = True
 
     data = getTodaysSteamSpyData()
 
     ranking = rank_games_based_on_ratio_players_vs_reviews(data, ratio_exponent)
 
     print_ranking_to_file(ranking, output_filename, num_top_games_to_print)
+
+    if verbose:
+        check_meta_data(data, ranking, num_top_games_to_print=10)
