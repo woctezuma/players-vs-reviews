@@ -1,8 +1,9 @@
-def compute_ratio_players_vs_reviews(game, ratio_exponent=1):
+def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players'):
     # Code copied from createLocalDictionary() in create_dict_using_json.py in hidden-gems repository.
 
     # Read data
-    num_players = game['players_forever']
+    num_players = game[player_str + '_forever']
+
     num_positive_reviews = game["positive"]
     num_negative_reviews = game["negative"]
 
@@ -17,12 +18,13 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1):
     return ratio_players_vs_reviews
 
 
-def rank_games_based_on_ratio_players_vs_reviews(steamspy_data, ratio_exponent=1):
+def rank_games_based_on_ratio_players_vs_reviews(steamspy_data, ratio_exponent=1, player_str='players'):
     # Code copied from rankGames() in compute_stats.py in hidden-gems repository.
 
     # Sort data based on ratio
     appID_ranking = sorted(steamspy_data.keys(),
-                           key=lambda appID: compute_ratio_players_vs_reviews(steamspy_data[appID], ratio_exponent),
+                           key=lambda appID: compute_ratio_players_vs_reviews(steamspy_data[appID], ratio_exponent,
+                                                                              player_str),
                            reverse=True)
 
     # Get game names
@@ -97,6 +99,7 @@ if __name__ == "__main__":
 
     # Ranking parameter
     ratio_exponent = -1
+    player_str = 'players'  # Either 'players' or 'owners'
     # A ranking will be stored in the following text file
     output_filename = "ranking.md"
     # Display parameter
@@ -105,7 +108,7 @@ if __name__ == "__main__":
 
     data = getTodaysSteamSpyData()
 
-    ranking = rank_games_based_on_ratio_players_vs_reviews(data, ratio_exponent)
+    ranking = rank_games_based_on_ratio_players_vs_reviews(data, ratio_exponent, player_str)
 
     print_ranking_to_file(ranking, output_filename, num_top_games_to_print)
 
