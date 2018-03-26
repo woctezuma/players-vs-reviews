@@ -8,6 +8,17 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     num_positive_reviews = game["positive"]
     num_negative_reviews = game["negative"]
 
+    # As per SteamSpy API documentation:
+    #
+    # * positive - number of positive user reviews
+    # * negative - number of negative user reviews
+    #
+    # * owners - owners of this application on Steam. **Beware of free weekends!**
+    # * owners_variance - variance in owners. The real number of owners lies in [owners +/- owners_variance] range.
+    #
+    # * players_forever - people that have played this game since March 2009.
+    # * players_forever_variance - variance for total players.
+
     # Compute ratio
     num_reviews = num_positive_reviews + num_negative_reviews
 
@@ -108,8 +119,10 @@ if __name__ == "__main__":
     # Ranking parameter
     ratio_exponent = -1
     player_str = 'players'  # Either 'players' or 'owners'
+
     # A ranking will be stored in the following text file
     output_filename = "ranking.md"
+
     # Display parameter
     num_top_games_to_print = 10
     verbose = True
