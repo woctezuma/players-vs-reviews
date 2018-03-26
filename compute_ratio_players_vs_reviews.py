@@ -103,6 +103,8 @@ def print_ranking_to_file(ranking, output_filename=None, num_top_games_to_print=
 
 
 def check_meta_data(data, ranking, num_top_games_to_print=10):
+    print()
+
     for (iter_no, game_info) in enumerate(ranking):
 
         if iter_no == num_top_games_to_print:
@@ -122,7 +124,7 @@ if __name__ == "__main__":
     player_str = 'players_forever'  # Either 'players_forever' or 'owners'
 
     # A ranking will be stored in the following text file
-    output_filename = "ranking.md"
+    output_filename = None  # "ranking.md"
 
     # Display parameter
     num_top_games_to_print = 25
