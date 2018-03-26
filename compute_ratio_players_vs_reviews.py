@@ -105,7 +105,7 @@ def print_ranking_to_file(ranking, output_filename=None, num_top_games_to_print=
 def check_meta_data(data, ranking, num_top_games_to_print=10):
     for (iter_no, game_info) in enumerate(ranking):
 
-        if iter_no > num_top_games_to_print:
+        if iter_no == num_top_games_to_print:
             break
 
         (appid, game_name) = game_info
