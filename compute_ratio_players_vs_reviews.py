@@ -1,9 +1,33 @@
+def get_mid_of_interval(interval_as_str):
+    # Code copied from get_mid_of_interval() in compute_stats.py in hidden-gems repository.
+    interval_as_str_formatted = [s.replace(',', '') for s in interval_as_str.split('..')]
+    lower_bound = float(interval_as_str_formatted[0])
+    upper_bound = float(interval_as_str_formatted[1])
+    mid_value = (lower_bound + upper_bound) / 2
+
+    return mid_value
+
+
 def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players'):
     # Code copied from createLocalDictionary() in create_dict_using_json.py in hidden-gems repository.
 
     # Read data
-    num_players = game[player_str]
-    num_players_variance = game[player_str + '_variance']
+
+    try:
+        num_players = game[player_str]
+        num_players = float(num_players)
+    except KeyError:
+        # NB: After SteamSpy's update, 'players_forever' is not provided and will lead to an error.
+        num_players = None
+    except ValueError:
+        # NB: After SteamSpy's update, 'owners' is given as a range instead of a point-estimate.
+        num_players = get_mid_of_interval(game[player_str])
+
+    try:
+        num_players_variance = game[player_str + '_variance']
+    except KeyError:
+        # NB: After SteamSpy's update, variance is not provided.
+        num_players_variance = None
 
     num_positive_reviews = game["positive"]
     num_negative_reviews = game["negative"]
@@ -27,7 +51,8 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     # - zero player (due to the use of a "lower or equal" sign),
     # - fewer players than reviews (a sign that data is spurious),
     # - zero review. Game is weird: either a development toolkit, or it was removed from the store, etc.
-    if (num_players <= num_players_variance) or (num_players < num_reviews) or (num_reviews == 0):
+    if (not (num_players_variance is None) and (num_players <= num_players_variance)) \
+            or (num_players < num_reviews) or (num_reviews == 0):
         ratio_players_vs_reviews = -1
     else:
         assert (num_players > 0)
@@ -121,7 +146,8 @@ def main():
 
     # Ranking parameter
     ratio_exponent = -1
-    player_str = 'players_forever'  # Either 'players_forever' or 'owners'
+    player_str = 'owners'  # Either 'players_forever' or 'owners'
+    # NB: After SteamSpy's update, only 'owners' is provided. Choosing 'players_forever' will lead to an error.
 
     # A ranking will be stored in the following text file
     output_filename = None  # "ranking.md"
