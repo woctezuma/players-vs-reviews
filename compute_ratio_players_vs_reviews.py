@@ -8,7 +8,7 @@ def get_mid_of_interval(interval_as_str):
     return mid_value
 
 
-def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players'):
+def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='owners'):
     # Code copied from createLocalDictionary() in create_dict_using_json.py in hidden-gems repository.
 
     # Read data
@@ -63,7 +63,7 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='players
     return ratio_players_vs_reviews
 
 
-def rank_games_based_on_ratio_players_vs_reviews(steamspy_data, ratio_exponent=1, player_str='players'):
+def rank_games_based_on_ratio_players_vs_reviews(steamspy_data, ratio_exponent=1, player_str='owners'):
     # Code copied from rankGames() in compute_stats.py in hidden-gems repository.
 
     # Sort data based on ratio
