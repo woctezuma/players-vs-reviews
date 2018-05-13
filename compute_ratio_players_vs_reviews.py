@@ -116,7 +116,7 @@ def check_meta_data(data, ranking, num_top_games_to_print=10):
     return
 
 
-if __name__ == "__main__":
+def main():
     from download_json import getTodaysSteamSpyData
 
     # Ranking parameter
@@ -138,3 +138,9 @@ if __name__ == "__main__":
 
     if verbose:
         check_meta_data(data, ranking, num_top_games_to_print)
+
+    return True
+
+
+if __name__ == "__main__":
+    main()
