@@ -142,7 +142,7 @@ def check_meta_data(data, ranking, num_top_games_to_print=10):
 
 
 def main():
-    from download_json import getTodaysSteamSpyData
+    from download_json import get_todays_steam_spy_data
 
     # Ranking parameter
     ratio_exponent = -1
@@ -156,7 +156,7 @@ def main():
     num_top_games_to_print = 25
     verbose = True
 
-    data = getTodaysSteamSpyData()
+    data = get_todays_steam_spy_data()
 
     ranking = rank_games_based_on_ratio_players_vs_reviews(data, ratio_exponent, player_str)
 
