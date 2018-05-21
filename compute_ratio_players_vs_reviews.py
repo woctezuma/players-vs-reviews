@@ -1,3 +1,6 @@
+import steamspypi
+
+
 def get_mid_of_interval(interval_as_str):
     # Code copied from get_mid_of_interval() in create_dict_using_json.py in hidden-gems repository.
     interval_as_str_formatted = [s.replace(',', '') for s in interval_as_str.split('..')]
@@ -142,8 +145,6 @@ def check_meta_data(data, ranking, num_top_games_to_print=10):
 
 
 def main():
-    from download_json import get_todays_steam_spy_data
-
     # Ranking parameter
     ratio_exponent = -1
     player_str = 'owners'  # Either 'players_forever' or 'owners'
@@ -156,7 +157,7 @@ def main():
     num_top_games_to_print = 25
     verbose = True
 
-    data = get_todays_steam_spy_data()
+    data = steamspypi.load()
 
     ranking = rank_games_based_on_ratio_players_vs_reviews(data, ratio_exponent, player_str)
 
