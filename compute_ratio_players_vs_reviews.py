@@ -138,7 +138,7 @@ def check_meta_data(data, ranking, num_top_games_to_print=10):
         if iter_no == num_top_games_to_print:
             break
 
-        (appid, game_name) = game_info
+        (appid, _) = game_info
         print(data[appid])
 
     return
