@@ -89,7 +89,7 @@ def print_ranking_to_file_stream(ranking, outfile=None, num_top_games_to_print=N
 
     from math import log10, ceil
 
-    base_steam_store_url = "http://store.steampowered.com/app/"
+    base_steam_store_url = "https://store.steampowered.com/app/"
 
     num_games = len(ranking)
     if num_top_games_to_print is not None:
