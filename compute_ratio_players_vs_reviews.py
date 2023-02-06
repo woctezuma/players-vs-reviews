@@ -95,7 +95,7 @@ def rank_games_based_on_ratio_players_vs_reviews(
     game_name_ranking = [steamspy_data[appid]['name'] for appid in appid_ranking]
 
     # The following call to list() allows to copy the ranking, e.g. to compute its length before iterating over it.
-    ranking = list(zip(appid_ranking, game_name_ranking))
+    ranking = list(zip(appid_ranking, game_name_ranking, strict=True))
 
     return ranking
 
