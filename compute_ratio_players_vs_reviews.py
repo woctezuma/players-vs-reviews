@@ -57,7 +57,7 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='owners'
     # - fewer players than reviews (a sign that data is spurious),
     # - zero review. Game is weird: either a development toolkit, or it was removed from the store, etc.
     if (
-        (not (num_players_variance is None) and (num_players <= num_players_variance))
+        (num_players_variance is not None and (num_players <= num_players_variance))
         or (num_players < num_reviews)
         or (num_reviews == 0)
     ):
@@ -110,7 +110,7 @@ def print_ranking_to_file_stream(
 ):
     # Code copied from saveRankingToFile() in compute_stats.py in hidden-gems repository.
 
-    from math import log10, ceil
+    from math import ceil, log10
 
     base_steam_store_url = "https://store.steampowered.com/app/"
 
