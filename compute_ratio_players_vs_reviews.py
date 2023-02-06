@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import steamspypi
 
 
@@ -155,7 +157,7 @@ def print_ranking_to_file(ranking, output_filename=None, num_top_games_to_print=
     if output_filename is None:
         print_ranking_to_file_stream(ranking, None, num_top_games_to_print)
     else:
-        with open(output_filename, 'w', encoding="utf8") as outfile:
+        with Path(output_filename).open('w', encoding="utf8") as outfile:
             print_ranking_to_file_stream(ranking, outfile, num_top_games_to_print)
 
     return
