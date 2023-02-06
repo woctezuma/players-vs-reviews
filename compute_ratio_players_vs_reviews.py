@@ -3,7 +3,9 @@ import steamspypi
 
 def get_mid_of_interval(interval_as_str):
     # Code copied from get_mid_of_interval() in create_dict_using_json.py in hidden-gems repository.
-    interval_as_str_formatted = [s.replace(',', '') for s in interval_as_str.split('..')]
+    interval_as_str_formatted = [
+        s.replace(',', '') for s in interval_as_str.split('..')
+    ]
     lower_bound = float(interval_as_str_formatted[0])
     upper_bound = float(interval_as_str_formatted[1])
     mid_value = (lower_bound + upper_bound) / 2
@@ -54,8 +56,11 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='owners'
     # - zero player (due to the use of a "lower or equal" sign),
     # - fewer players than reviews (a sign that data is spurious),
     # - zero review. Game is weird: either a development toolkit, or it was removed from the store, etc.
-    if (not (num_players_variance is None) and (num_players <= num_players_variance)) \
-            or (num_players < num_reviews) or (num_reviews == 0):
+    if (
+        (not (num_players_variance is None) and (num_players <= num_players_variance))
+        or (num_players < num_reviews)
+        or (num_reviews == 0)
+    ):
         ratio_players_vs_reviews = -1
     else:
         if not (num_players > 0):
@@ -68,17 +73,28 @@ def compute_ratio_players_vs_reviews(game, ratio_exponent=1, player_str='owners'
     return ratio_players_vs_reviews
 
 
-def rank_games_based_on_ratio_players_vs_reviews(steamspy_data, ratio_exponent=1, player_str='owners'):
+def rank_games_based_on_ratio_players_vs_reviews(
+    steamspy_data,
+    ratio_exponent=1,
+    player_str='owners',
+):
     # Code copied from rankGames() in compute_stats.py in hidden-gems repository.
 
     # Sort data based on ratio
-    appid_ranking = sorted(steamspy_data.keys(),
-                           key=lambda appid: compute_ratio_players_vs_reviews(steamspy_data[appid], ratio_exponent,
-                                                                              player_str),
-                           reverse=True)
+    appid_ranking = sorted(
+        steamspy_data.keys(),
+        key=lambda appid: compute_ratio_players_vs_reviews(
+            steamspy_data[appid],
+            ratio_exponent,
+            player_str,
+        ),
+        reverse=True,
+    )
 
     # Get game names
-    game_name_ranking = list(map(lambda appid: steamspy_data[appid]['name'], appid_ranking))
+    game_name_ranking = list(
+        map(lambda appid: steamspy_data[appid]['name'], appid_ranking),
+    )
 
     # The following call to list() allows to copy the ranking, e.g. to compute its length before iterating over it.
     ranking = list(zip(appid_ranking, game_name_ranking))
@@ -86,7 +102,12 @@ def rank_games_based_on_ratio_players_vs_reviews(steamspy_data, ratio_exponent=1
     return ranking
 
 
-def print_ranking_to_file_stream(ranking, outfile=None, num_top_games_to_print=None, width=40):
+def print_ranking_to_file_stream(
+    ranking,
+    outfile=None,
+    num_top_games_to_print=None,
+    width=40,
+):
     # Code copied from saveRankingToFile() in compute_stats.py in hidden-gems repository.
 
     from math import log10, ceil
@@ -99,21 +120,31 @@ def print_ranking_to_file_stream(ranking, outfile=None, num_top_games_to_print=N
     rank_width = ceil(log10(num_games))
     rank_format_str = '{:0' + str(rank_width) + '}'
 
-    for (iter_no, game_info) in enumerate(ranking):
+    for iter_no, game_info in enumerate(ranking):
         current_rank = iter_no + 1
         (appid, game_name) = game_info
 
         store_url = base_steam_store_url + appid
         store_url_fixed_width = f'{store_url: <{width}}'
 
-        sentence = rank_format_str.format(current_rank) + ".\t[" + game_name + "](" + store_url_fixed_width + ")"
+        sentence = (
+            rank_format_str.format(current_rank)
+            + ".\t["
+            + game_name
+            + "]("
+            + store_url_fixed_width
+            + ")"
+        )
 
         if outfile is None:
             print(sentence)
         else:
             print(sentence, file=outfile)
 
-        if num_top_games_to_print is not None and current_rank == num_top_games_to_print:
+        if (
+            num_top_games_to_print is not None
+            and current_rank == num_top_games_to_print
+        ):
             break
 
     return
@@ -135,8 +166,7 @@ def print_ranking_to_file(ranking, output_filename=None, num_top_games_to_print=
 def check_meta_data(data, ranking, num_top_games_to_print=10):
     print()
 
-    for (iter_no, game_info) in enumerate(ranking):
-
+    for iter_no, game_info in enumerate(ranking):
         if iter_no == num_top_games_to_print:
             break
 
@@ -161,7 +191,11 @@ def main():
 
     data = steamspypi.load()
 
-    ranking = rank_games_based_on_ratio_players_vs_reviews(data, ratio_exponent, player_str)
+    ranking = rank_games_based_on_ratio_players_vs_reviews(
+        data,
+        ratio_exponent,
+        player_str,
+    )
 
     print_ranking_to_file(ranking, output_filename, num_top_games_to_print)
 
