@@ -3,8 +3,8 @@
 [![Build status][Build image]][Build]
 [![Code coverage][Codecov image]][Codecov]
 
-  [Build]: https://travis-ci.org/woctezuma/players-vs-reviews
-  [Build image]: https://travis-ci.org/woctezuma/players-vs-reviews.svg?branch=master
+  [Build]: <https://github.com/woctezuma/players-vs-reviews/actions>
+  [Build image]: <https://github.com/woctezuma/players-vs-reviews/workflows/Python package/badge.svg?branch=master>
 
   [PyUp]: https://pyup.io/repos/github/woctezuma/players-vs-reviews/
   [Dependency image]: https://pyup.io/repos/github/woctezuma/players-vs-reviews/shield.svg
